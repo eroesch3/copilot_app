@@ -78,8 +78,8 @@ class App extends Component {
       const activityObject = {
         category: e.target.category.value,
         name: e.target.name.value,
-        hours_spent: e.target.category.hours_spent,
-        date: e.target.category.date
+        hours_spent: e.target.hours_spent.value,
+        date: e.target.date.value
       }
       console.log(this.state.user_id)
       const activity = await createActivity(this.state.user_id, activityObject)

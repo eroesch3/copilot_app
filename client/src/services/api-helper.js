@@ -1,4 +1,5 @@
-const baseUrl = 'https://co-pilot-app.herokuapp.com/'
+const baseUrl = 'http://localhost:3000'
+// const baseUrl = 'https://co-pilot-app.herokuapp.com'
 
 export const loginUser = (loginData) => {
   const opts = {
@@ -42,6 +43,7 @@ const createActivity = (user_id, data) => {
       'Content-Type': 'application/json'
     }
   }
+  console.log(opts.body)
   return fetch(`${baseUrl}/users/${user_id}/activities`, opts)
     .then(resp => resp.json())
 }

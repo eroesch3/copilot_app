@@ -5,9 +5,12 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+
 ReactDOM.render(
   <Router>
-      <App />
+      <App
+       />
+       <script src="https://d3js.org/d3.v5.min.js"></script>
   </Router>
 
 , document.getElementById('root'));
