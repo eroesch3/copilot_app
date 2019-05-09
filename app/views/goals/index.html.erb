@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Goals</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Category</th>
+      <th>Time budget</th>
+      <th>Frequency</th>
+      <th>Prompt</th>
+      <th>Start date</th>
+      <th>End date</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @goals.each do |goal| %>
+      <tr>
+        <td><%= goal.name %></td>
+        <td><%= goal.category %></td>
+        <td><%= goal.time_budget %></td>
+        <td><%= goal.frequency %></td>
+        <td><%= goal.prompt %></td>
+        <td><%= goal.start_date %></td>
+        <td><%= goal.end_date %></td>
+        <td><%= goal.user %></td>
+        <td><%= link_to 'Show', goal %></td>
+        <td><%= link_to 'Edit', edit_goal_path(goal) %></td>
+        <td><%= link_to 'Destroy', goal, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Goal', new_goal_path %>

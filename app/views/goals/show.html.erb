@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @goal.name %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @goal.category %>
+</p>
+
+<p>
+  <strong>Time budget:</strong>
+  <%= @goal.time_budget %>
+</p>
+
+<p>
+  <strong>Frequency:</strong>
+  <%= @goal.frequency %>
+</p>
+
+<p>
+  <strong>Prompt:</strong>
+  <%= @goal.prompt %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @goal.start_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @goal.end_date %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @goal.user %>
+</p>
+
+<%= link_to 'Edit', edit_goal_path(@goal) %> |
+<%= link_to 'Back', goals_path %>
