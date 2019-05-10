@@ -8,14 +8,13 @@ function ActivitiesView(props) {
 
     <div className="activity-container">
 
-<h1>THIS IS ACTIVITIES VIEW</h1>
+<h1>{props.username}'s Logged Activities</h1>
 
       {props.activities.map(activity => (
         <div
           key={activity.id}
           className="activity-card"
           onClick={(e) => {
-            // debugger;
             props.history.push(`activities/${activity.id}`);
             // props.history.push(`users/${props.user_id}/activities/${activity.id}`);
             window.scrollTo(0, 0);
@@ -26,18 +25,7 @@ function ActivitiesView(props) {
           </h3>
         </div>
       ))}
-      <div
-        className="activity-card"
-        onClick={() => {
-          props.history.push('/new/activity');
-          window.scrollTo(0, 0);
-        }}>
-        {/* <img */}
-          {/* // alt="no image" */}
-          {/* // src=" # " */}
-          {/* className="act-view-image" /> */}
-        <h3>Create a new activity</h3>
-      </div>
+      
     </div>
   )
 }

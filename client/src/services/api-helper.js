@@ -27,13 +27,10 @@ export const registerUser = (registerData) => {
     .then(resp => resp.json())
 }
 
-
 const readAllActivities = (user_id) => {
   return fetch(`${baseUrl}/users/${user_id}/activities`)
-  // return fetch(`${baseUrl}/activities`)
     .then(resp => resp.json())
 }
-
 
 const createActivity = (user_id, data) => {
   const opts = {
@@ -48,12 +45,9 @@ const createActivity = (user_id, data) => {
     .then(resp => resp.json())
 }
 
-
-// ,( window.location.pathname.indexOf("/edit") - ( 11 + window.location.pathname.indexOf("activities/")))
-
 const updateActivity = (user_id, data) => {
-  const activityId = window.location.pathname.slice((11 + window.location.pathname.indexOf("activities/")), ( window.location.pathname.indexOf("/edit")))
-  
+  const activityId = window.location.pathname.slice((11 + window.location.pathname.indexOf("activities/")), (window.location.pathname.indexOf("/edit")))
+
   console.log('activity ID:', activityId)
   console.log(data)
   const opts = {
@@ -67,10 +61,7 @@ const updateActivity = (user_id, data) => {
     .then(resp => resp.json())
 }
 
-
-
 const destroyActivity = (user_id, activityId) => {
-  // const activityId = window.location.pathname.slice((11 + window.location.pathname.indexOf("activities/")), ( window.location.pathname.indexOf("/edit")))
   console.log('activity id:', activityId)
   console.log('activity id:', user_id)
   const opts = {

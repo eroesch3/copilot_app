@@ -52,18 +52,6 @@ class App extends Component {
     this.authHandleChange = this.authHandleChange.bind(this)
   }
 
-
-  // componentDidMount() {
-  //   this.getTeachers();
-  //   const checkUser = localStorage.getItem("jwt");
-  //   if (checkUser) {
-  //     const user = decode(checkUser);
-  //     this.setState({
-  //       currentUser: user
-  //     })
-  //   }
-  // }
-
   async getActivities() {
     const activities = await readAllActivities(this.state.user_id);
     this.setState({
@@ -71,85 +59,59 @@ class App extends Component {
     })
   }
 
-
-    async newActivity(e) {
-      e.preventDefault();
-      console.log("e: ", e.target.category.value)
-      const activityObject = {
-        category: e.target.category.value,
-        name: e.target.name.value,
-        hours_spent: e.target.hours_spent.value,
-        date: e.target.date.value
+  async newActivity(e, getActivities) {
+    e.preventDefault();
+    console.log("e: ", e.target.category.value)
+    const activityObject = {
+      category: e.target.category.value,
+      name: e.target.name.value,
+      hours_spent: e.target.hours_spent.value,
+      date: e.target.date.value
+    }
+    console.log(this.state.user_id)
+    const activity = await createActivity(this.state.user_id, activityObject)
+    this.setState(prevState => ({
+      activities: [...prevState.activities, activity],
+      activityForm: {
+        name: "",
+        category: "",
+        hours_spent: null,
+        date: null
       }
-      console.log(this.state.user_id)
-      const activity = await createActivity(this.state.user_id, activityObject)
-      this.setState(prevState => ({
-        activities: [...prevState.activities, activity],
-        activityForm: {
-          name: "",
-          category: "",
-          hours_spent: null,
-          date: null
-        }
-      }))
+    }))
+    this.getActivities();
+  }
+
+  async editActivity(e) {
+    e.preventDefault();
+    console.log("e: ", e.target.category.value)
+    const activityObject = {
+      category: e.target.category.value,
+      name: e.target.name.value,
+      hours_spent: e.target.category.hours_spent,
+      date: e.target.category.date
+    }
+    console.log(this.state.user_id)
+    const activity = await updateActivity(this.state.user_id, activityObject)
+    this.setState(prevState => ({
+      activities: [...prevState.activities, activity],
+      activityForm: {
+        name: "",
+        category: "",
+        hours_spent: null,
+        date: null
       }
+    }))
+    this.getActivities();
+  }
 
-
-
-      // async editActivity() {
-      //   const { activityForm } = this.state
-      //   await updateActivity(this.state.user_id, activityObject);
-      //   this.setState(prevState => (
-      //     {
-      //       activities: prevState.activities.map(activity => activity.id === activityForm.id ? activityForm : activity),
-      //     }
-      //   ))
-      // }
-
-
-      async editActivity(e) {
-        e.preventDefault();
-        console.log("e: ", e.target.category.value)
-        const activityObject = {
-          category: e.target.category.value,
-          name: e.target.name.value,
-          hours_spent: e.target.category.hours_spent,
-          date: e.target.category.date
-        }
-        console.log(this.state.user_id)
-        const activity = await updateActivity(this.state.user_id, activityObject)
-        this.setState(prevState => ({
-          activities: [...prevState.activities, activity],
-          activityForm: {
-            name: "",
-            category: "",
-            hours_spent: null,
-            date: null
-          }
-        }))
-        // this.setState(prevState => ({
-        //   activities: prevState.activities.map(activity => activity.id === activityForm.id ? activityForm : activity)
-        
-        // this.setState(prevState => ({
-        //   activities: prevState.activities.map(activity => activity.id === activityForm.id ? activityForm : activity)
-        //   // activities: [...prevState.activities, activity],
-        //   activityForm: {
-        //     name: "",
-        //     category: "",
-        //     hours_spent: null,
-        //     date: null
-        //   }
-          
-        // }))
-        }
-  
 
   async deleteActivity(id) {
-    // await destroyActivity(id);
     await destroyActivity(this.state.user_id, id);
     this.setState(prevState => ({
       activities: prevState.activities.filter(activity => activity.id !== id)
     }))
+    this.getActivities();
   }
 
   handleFormChange(e) {
@@ -211,7 +173,7 @@ class App extends Component {
   }
 
   render() {
-    
+
     const onActivitiesPage = window.location.pathname.slice(-10) === 'activities' ? true : false
     console.log(onActivitiesPage)
     const user_id = this.state.user_id
@@ -228,23 +190,21 @@ class App extends Component {
             }
           })}>Copilot</Link></h1>
           <div>
-          {this.state.currentUser
-            ?
-            <>
-              <p>{this.state.currentUser.username}</p>
-              <button onClick={this.handleLogout}>logout</button>
-            </>
-            :
-            <button onClick={this.handleLoginButton}>Login/Register</button>
-          }
+            {this.state.currentUser
+              ?
+              <>
+                <p>{this.state.currentUser.username}</p>
+                <button onClick={this.handleLogout}>logout</button>
+              </>
+              :
+              <button onClick={this.handleLoginButton}>Login/Register</button>
+            }
           </div>
         </header>
 
         <Link to={`/users/${user_id}/activities`}>View Activities</Link>
-        <br/>
+        <br />
         <Link to={`/users/${user_id}/activities`}>Create Activity</Link>&nbsp;
-        {/* <Link to="/flavors">Flavors</Link> */}
-
 
         <Route exact path="/login" render={() => (
           <Login
@@ -257,36 +217,17 @@ class App extends Component {
             handleChange={this.authHandleChange}
             formData={this.state.authFormData} />)} />
 
-
-{/* XXXXXXXXXXXXXXXXXXXXXXXXXX  Option 1: Noon Tues  WIP SHOW ACTIVITIES IF NEED TO GO BACK */}
-        
-        {/* <Route
-          exact path="/users/:user_id/activities"
-          render={() => (
-            <ActivitiesView
-              activities={this.state.activities}
-              activityForm={this.state.activityForm}
-              handleFormChange={this.handleFormChange}
-              newActivity={this.newActivity} />
-          )}
-        /> */}
-
-{/* XXXXXXXXXXXXXXXXXXXXXXXXXX Option 2:  11:10AM Tues WIP SHOW ACTIVITIES IF NEED TO GO BACK */}
         <Route
           path={`/users/${user_id}/activities`}
           render={(props) => {
-            // const { user_id } = props.match.params;
-            // const { id } = props.match.params;
-            // const id = this.state.activities.find(el => el.id
-            // === parseInt(id)); 
-            return  onActivitiesPage && <ActivitiesView
+            return onActivitiesPage && <ActivitiesView
               user_id={user_id}
+              username={this.state.currentUser.username}
               activities={this.state.activities}
               handleFormChange={this.handleFormChange}
               activityForm={this.state.activityForm}
-              newActivity={this.newActivity} /> 
+              newActivity={this.newActivity} />
           }} />
-{/* XXXXXXXXXXXXXXXXXXXXXXXXXX     END OF SHOW ACTIVITIES */}
 
 
         <Route
@@ -295,19 +236,21 @@ class App extends Component {
             <CreateActivity
               handleFormChange={this.handleFormChange}
               activityForm={this.state.activityForm}
-              newActivity={this.newActivity} />
+              newActivity={this.newActivity}
+              getActivities={this.getActivities}
+            />
           )} />
 
 
         <Route
           path={`/users/${user_id}/activities/:id`}
-          
+
           render={(props) => {
             const { id } = props.match.params;
             const activity = this.state.activities.find(el => el.id === parseInt(id));
 
-            {console.log('activityForm in App.js:', this.state.activityForm)}
-            
+            { console.log('activityForm in App.js:', this.state.activityForm) }
+
             return <ActivityPage
               id={id}
               activity={activity}
@@ -316,9 +259,6 @@ class App extends Component {
               editActivity={this.editActivity}
               activityForm={this.state.activityForm}
               deleteActivity={this.deleteActivity} />
-
-              
-
           }}
         />
       </div>
