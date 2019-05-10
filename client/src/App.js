@@ -25,6 +25,7 @@ class App extends Component {
     super(props);
     this.state = {
       user_id: '',
+      showCreate: false,
       activities: [],
       activityForm: {
         name: "",
@@ -61,17 +62,17 @@ class App extends Component {
 
   async newActivity(e, getActivities) {
     e.preventDefault();
-    console.log("e: ", e.target.category.value)
     const activityObject = {
       category: e.target.category.value,
       name: e.target.name.value,
       hours_spent: e.target.hours_spent.value,
       date: e.target.date.value
     }
-    console.log(this.state.user_id)
+
     const activity = await createActivity(this.state.user_id, activityObject)
     this.setState(prevState => ({
       activities: [...prevState.activities, activity],
+      showCreate: false,
       activityForm: {
         name: "",
         category: "",
@@ -95,6 +96,7 @@ class App extends Component {
     const activity = await updateActivity(this.state.user_id, activityObject)
     this.setState(prevState => ({
       activities: [...prevState.activities, activity],
+      showCreate: false,
       activityForm: {
         name: "",
         category: "",
@@ -201,13 +203,20 @@ class App extends Component {
             }
           </div>
         </header>
+        
+          {this.state.currentUser && <Link to={`/users/${user_id}/activities`}>View Activities</Link> }
+        <br /> 
 
-        <Link to={`/users/${user_id}/activities`}>View Activities</Link>
-        <br />
-        <Link to={`/users/${user_id}/activities`}>Create Activity</Link>&nbsp;
+        <h2> {this.state.currentUser && <Link to={`/users/${user_id}/activities`} onClick={() => this.setState({
+            showCreate: true
+        })}>Create Activity</Link> } </h2>
+
+        {/* <Link to={`/users/${user_id}/activities`}>Create Activity</Link>&nbsp; */}
+
+{/* XXXXXXXXXXXXXX */}
 
         <Route exact path="/login" render={() => (
-          <Login
+          !this.state.currentUser && <Login
             handleLogin={this.handleLogin}
             handleChange={this.authHandleChange}
             formData={this.state.authFormData} />)} />
@@ -216,6 +225,17 @@ class App extends Component {
             handleRegister={this.handleRegister}
             handleChange={this.authHandleChange}
             formData={this.state.authFormData} />)} />
+
+        <Route
+          path={`/users/${user_id}/activities`}
+          render={() => (
+          this.state.showCreate &&  <CreateActivity
+              handleFormChange={this.handleFormChange}
+              activityForm={this.state.activityForm}
+              newActivity={this.newActivity}
+              getActivities={this.getActivities}
+            />
+          )} />  
 
         <Route
           path={`/users/${user_id}/activities`}
@@ -230,16 +250,7 @@ class App extends Component {
           }} />
 
 
-        <Route
-          path={`/users/${user_id}/activities`}
-          render={() => (
-            <CreateActivity
-              handleFormChange={this.handleFormChange}
-              activityForm={this.state.activityForm}
-              newActivity={this.newActivity}
-              getActivities={this.getActivities}
-            />
-          )} />
+        
 
 
         <Route

@@ -1,3 +1,52 @@
+
+
+.act-headers {
+  text-align: left;
+  /* padding: 0 140px; */
+  max-width: 1800px;
+  margin-left: 650px;
+  display: block;
+  font-weight: bold;
+  font-size: 21px;
+ }
+
+
+.activity-card {
+  text-align: left;
+  max-width: 1800px;
+  margin-left: 650px;
+  display: block;
+}
+
+.activity-row {
+ display: flex;
+}
+
+
+.hours-spent {
+  text-align: left;
+  width: 30px;
+}
+.name {
+  text-align: left;
+  width: 180px;
+  margin-left: 45px;
+  margin-right: 100px;
+}
+.date {
+  text-align: left;
+  width: 140px;
+  margin-left: 45px;
+
+}
+.category {
+  text-align: left;
+  width: 200px;
+  margin-left: 8px;
+
+}
+
+
 .App {
   text-align: center;
 }
