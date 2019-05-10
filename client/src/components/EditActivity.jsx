@@ -8,7 +8,7 @@ function EditActivity(props, e) {
     <div>
       <h3>Edit previous activity {console.log(props.activityForm)}</h3>
       <form onSubmit={props.handleSubmit}>
-        <p>Category FROM ACTIVITY:</p>
+        <p>Category:</p>
         <input
           type="text"
           name="category"
@@ -27,7 +27,7 @@ function EditActivity(props, e) {
           name="hours_spent"
           value={props.activityForm.hours_spent}
           onChange={props.handleFormChange} />
-            <p>Date:</p>
+        <p>Date:</p>
         <input
           type="date"
           name="date"
