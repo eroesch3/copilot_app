@@ -6,10 +6,12 @@ function ActivitiesView(props) {
   console.log(props.user_id)
   return (
 
-    <div className="activity-container">
+<div className="activity-container">
+
 
 <h1>{props.username}'s Logged Activities</h1>
 
+<div className="act-box">
 <div className="act-headers">
 Hours &nbsp; Name &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Date  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Category
 </div>
@@ -42,7 +44,7 @@ Hours &nbsp; Name &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 
         </div>
       ))}
-      
+    </div>  
     </div>
   )
 }

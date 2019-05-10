@@ -1,3 +1,26 @@
+# Copilot-- A Time Management & Activity Tracker 
+
+
+### Summary:
+* Track Your Activities With Copilot.
+    * Initial version tracks activities for users that register and log in.
+
+### Setup
+* Follow these steps to install the app and run on localhost:
+    * Checks for valid cell in target.
+    * Removes selected cell from future target list.
+    * Player alerted Hit or Miss!
+* Computer fires on randomly chosen cell.
+    * Player alerted Hit or Miss!   
+    * Removes selected cell from future target list.
+* First to amass 4 hits (Computer or Player) announced as winner.
+
+
+
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
